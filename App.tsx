@@ -2,6 +2,8 @@
 // we import components from modules
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { ClassExample } from './classes/ClassExample'; 
+import Doggy from './classes/DoggyComponent';
 
 // we need to define a default component
 // components can be defined in two ways:
@@ -25,7 +27,8 @@ export default function App() {
     // used to define UI 
     // (at the end its just another way to declare objects)
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+      <ClassExample nombre="Memo" age="38" />
+      <Doggy name="fido" age="5" />
       <StatusBar style="auto" />
     </View>
   );
