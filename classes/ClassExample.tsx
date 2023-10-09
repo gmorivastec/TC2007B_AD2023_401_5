@@ -1,7 +1,7 @@
 import { Component, ErrorInfo } from 'react';
 import { Text, View, Button } from 'react-native';
 
-export class ClassExample extends Component {
+export class ClassExample extends Component<{nombre : string, age : string}, {count: number, nombre : string}> {
 
     // we are going to do the class to examine
     // a component's lifecycle 

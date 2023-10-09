@@ -1,9 +1,33 @@
 // tsx - typescript file extension
 // we import components from modules
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { ClassExample } from './classes/ClassExample'; 
-import Doggy from './classes/DoggyComponent';
+import DoggyTest, { DoggyRow } from './classes/DoggyComponent';
+import RequestClass from './classes/RequestClass';
+import RequestFunction from './classes/RequestFunction';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
+
+export default function App() {
+
+  return(
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen 
+          name="Main"
+          component={Main}
+        />
+        <Stack.Screen 
+          name="RequestFunction"
+          component={RequestFunction}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
 
 // we need to define a default component
 // components can be defined in two ways:
@@ -16,7 +40,7 @@ import Doggy from './classes/DoggyComponent';
 // all UIs are made of components
 // all components are made of simpler components
 
-export default function App() {
+export function Main() {
   
   // when we define a component through a 
   // function we need to return a UI as a result 
@@ -28,7 +52,23 @@ export default function App() {
     // (at the end its just another way to declare objects)
     <View style={styles.container}>
       <ClassExample nombre="Memo" age="38" />
-      <Doggy name="fido" age="5" />
+      <DoggyTest name="fido" age="5" />
+      <FlatList 
+        data={[
+          {name: "doggy1", uri: "https://www.warrenphotographic.co.uk/photography/sqrs/42790.jpg"}
+        ]}
+        renderItem={({item}) => {
+          return(
+            <DoggyRow name={item.name} uri={item.uri} />
+          );
+        }}
+      />
+      <RequestClass 
+        uri="https://bitbucket.org/itesmguillermorivas/partial2/raw/45f22905941b70964102fce8caf882b51e988d23/carros.json" 
+      /> 
+      <RequestFunction 
+        uri="https://bitbucket.org/itesmguillermorivas/partial2/raw/45f22905941b70964102fce8caf882b51e988d23/carros.json"
+      />
       <StatusBar style="auto" />
     </View>
   );
