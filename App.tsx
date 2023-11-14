@@ -1,7 +1,7 @@
 // tsx - typescript file extension
 // we import components from modules
 import { StatusBar } from 'expo-status-bar';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View, Button } from 'react-native';
 import { ClassExample } from './classes/ClassExample'; 
 import DoggyTest, { DoggyRow } from './classes/DoggyComponent';
 import RequestClass from './classes/RequestClass';
@@ -21,8 +21,8 @@ export default function App() {
           component={Main}
         />
         <Stack.Screen 
-          name="RequestFunction"
-          component={RequestFunction}
+          name="NavExample"
+          component={NavExample}
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -40,7 +40,7 @@ export default function App() {
 // all UIs are made of components
 // all components are made of simpler components
 
-export function Main() {
+export function Main({navigation} : any) {
   
   // when we define a component through a 
   // function we need to return a UI as a result 
@@ -63,6 +63,12 @@ export function Main() {
           );
         }}
       />
+      <Button
+        title="NAVIGATION"
+        onPress= {() => {
+          navigation.navigate("NavExample", {data: "SOME DATA FROM THE MAIN INTERFACE"});
+        }} 
+      />
       <RequestClass 
         uri="https://bitbucket.org/itesmguillermorivas/partial2/raw/45f22905941b70964102fce8caf882b51e988d23/carros.json" 
       /> 
@@ -70,6 +76,15 @@ export function Main() {
         uri="https://bitbucket.org/itesmguillermorivas/partial2/raw/45f22905941b70964102fce8caf882b51e988d23/carros.json"
       />
       <StatusBar style="auto" />
+    </View>
+  );
+}
+
+// component just to test navigation and parameters
+function NavExample({navigation, route}: any) {
+  return(
+    <View> 
+      <Text>Nav example here! {route?.params.data}</Text>
     </View>
   );
 }
